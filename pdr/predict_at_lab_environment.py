@@ -91,8 +91,9 @@ x_y_values = [
     [0, 3],
     [0, 0]
 ]
-
+#ori = YAW  prediction為每秒移動的距離 prev_status為前一秒使用者地朝向 zero_count為連續禁止了幾秒
 def adjust_and_check_coordinates_with_values(x, y, ori, prediction, prev_status, x_y_values, count, zero_count):
+    #Determine Stillness
     for pred in prediction:
         if pred == 0:
             zero_count += 1
@@ -105,19 +106,19 @@ def adjust_and_check_coordinates_with_values(x, y, ori, prediction, prev_status,
                 count += 1
                 zero_count = 0
                 status = prev_status
-
+        #根據YAW判斷使用者往哪個方向前進
         else:
             if 55 <= ori <= 145:
-                x -= pred  # 這裡應該是 pred 而不是 prediction
+                x -= pred  
                 status = 1
             elif 235 <= ori <= 333:
-                x += pred  # 這裡應該是 pred 而不是 prediction
+                x += pred  
                 status = 2
             elif 145 <= ori <= 235:
-                y += pred  # 這裡應該是 pred 而不是 prediction
+                y += pred  
                 status = 3
             else:
-                y -= pred  # 這裡應該是 pred 而不是 prediction
+                y -= pred  
                 status = 4
 
             x = min(x, 6)
@@ -130,9 +131,9 @@ def adjust_and_check_coordinates_with_values(x, y, ori, prediction, prev_status,
             if changed_status:
                 min_distance = float('inf')
                 nearest_position = (0, 0)
-
+                #轉角的座標
                 specified_positions = [(0, 0), (3, 0), (6, 0), (0, 6), (3, 6), (6, 6)]
-
+                #找距離最近的轉角
                 for pos in specified_positions:
                     distance = ((x - pos[0]) ** 2 + (y - pos[1]) ** 2) ** 0.5
                     if distance < min_distance:
@@ -143,7 +144,7 @@ def adjust_and_check_coordinates_with_values(x, y, ori, prediction, prev_status,
 
     return x, y, status, count, zero_count
 
-
+#將座標轉換成Reference point
 def calculate_output(x, y):
     quotient_x = x // 0.6
     quotient_y = y // 0.6
@@ -187,4 +188,4 @@ def IMU_offline_predict(data_windows, ori, timesteps, features, model):
 IMU_offline_predict(data_windows, ori, timesteps, 6, model)
 
 
-#有Determine Stillness
+
