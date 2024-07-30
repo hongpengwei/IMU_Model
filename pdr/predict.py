@@ -30,7 +30,7 @@ model_input = np.array(data_windows)
 model_input = model_input.reshape(-1, timesteps, features)
 
 # 步骤5: 加载已训练的模型
-model = load_model('checkpoints\\four_layers_bilstm_model2_32.h5')  # 替换成你训练好的模型的文件名
+model = load_model('checkpoints\\Model_2.h5')  # 替换成你训练好的模型的文件名
 
 
 
