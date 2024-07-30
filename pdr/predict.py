@@ -7,13 +7,13 @@ import tensorflow as tf
 
 
 # 步骤1: 加载测试数据
-test_data = pd.read_csv('data\\after\\0625_105_new.csv')  # 加载测试数据，格式类似于训练数据
+test_data = pd.read_csv('data\\before\\Experiment 4\\fast_speed.csv')  # 加载测试数据，格式类似于训练数据
 print (test_data)
 
 
 # 步骤3: 创建数据窗口
 # 你的数据窗口创建可能需要根据模型输入的形状进行调整
-timesteps = 200  # 与训练时相同的窗口长度
+timesteps = 100  # 与训练时相同的窗口长度
 features = 6  # 与训练时相同的特征数量
 data_windows = []
 ori=[]
@@ -30,7 +30,7 @@ model_input = np.array(data_windows)
 model_input = model_input.reshape(-1, timesteps, features)
 
 # 步骤5: 加载已训练的模型
-model = load_model('checkpoints\\Model_2.h5')  # 替换成你训练好的模型的文件名
+model = load_model('checkpoints\\Model_4.h5')  # 替换成你训练好的模型的文件名
 
 
 
